@@ -90,9 +90,8 @@ const Login = () => {
                             controlId="formBasicCheckbox"
                           >
                             <p className="small">
-
-                                <Link  to="forget"  lassName="text-primary">  Forgot password?</Link>
-                             
+                                <Link  to="/forget"  lassName="text-primary">  Forgot password?</Link>
+                  
                             </p>
                           </Form.Group>
                           <div className="d-grid">
