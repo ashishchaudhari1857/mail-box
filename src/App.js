@@ -8,6 +8,7 @@ import ComposeMail from './Components/Pages/ComposeMail';
 import Header from './Components/Navbar/Navbar';
 import Sent from './Components/Pages/SentBoxAndInbox/SentBox';
 import Inbox from './Components/Pages/SentBoxAndInbox/Inbox'
+import Maildetail from './Components/Pages/Maildetail';
 function App() {
 
   return (
@@ -19,7 +20,8 @@ function App() {
   <Route  path='/login' element={<Login></Login>}></Route>
   <Route  path='/home' element={<Home></Home>}></Route>
  <Route  path="/signup" element={<SignUp></SignUp>}></Route>
- <Route  path="/sentmails" element={<Sent></Sent>}></Route>
+ <Route  path="/sentmails" element={<Sent></Sent>}></Route> 
+ <Route  path="/maildetail/:id/:userid/:userchoice" element={<Maildetail></Maildetail>}></Route>  
  <Route  path="/inbox" element={<Inbox></Inbox>}></Route>
  <Route path="/forget" element={<Reset></Reset>}></Route>
 </Routes> 

@@ -5,7 +5,6 @@ const Home = () => {
   return (
 <Row className='bg-primary'>
     <Col className='col-12'>Welcome to Mailbox</Col>
-    <NavLink to='/composeMail'>+</NavLink>
 </Row>
   )
 };

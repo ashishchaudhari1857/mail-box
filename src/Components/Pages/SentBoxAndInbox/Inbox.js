@@ -6,12 +6,13 @@ import { Mailactions } from "./MailManageSlice";
 import { Card, Row, Col, Container, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 const Inbox = () => {
   const API = "https://mailbox-df3f9-default-rtdb.firebaseio.com/";
   const usermail = useSelector((state) => state.auth.userid);
   const senderid = usermail.replace(/[@.]/g, "");
   const dispatch = useDispatch();
+  const navigate=useNavigate();
   const Recieved = useSelector((state) => state.mail.Recieved);
   const inboxmails = async () => {
     const loading = toast.info("loading....");
@@ -26,6 +27,7 @@ const Inbox = () => {
           content: inboxmaildata[key].content,
           subject: inboxmaildata[key].subject,
           date: inboxmaildata[key].date,
+          read:inboxmaildata[key].read,
         });
       }
 
@@ -45,7 +47,8 @@ const Inbox = () => {
   }, []);
 
   //
-  const deletehandler = async (key) => {
+  const deletehandler = async (key, event) => {
+    event.stopPropagation();
     try {
       const res = await fetch(`${API}${senderid}/inbox/${key}.json`, {
         method: "DELETE",
@@ -64,46 +67,37 @@ const Inbox = () => {
       toast.error(err.massage);
     }
   };
+  
   const data = Recieved.map((item) => (
-    <Container style={{ backgroundColor: "gray" }}>
-     <NavLink as={Link} to="/maildetail">
-
-        <Row>
-          <Col>
-            <Card className="mt-1 bg-black  text-white">
+    <Container style={{ backgroundColor: "gray" }} key={item.key}>
+      <Row>
+        <Col>
+          <NavLink as={Link} to={`/maildetail/${item.key}/${senderid}/${"inbox"}`}>
+            <Card className="mt-1 bg-black text-white">
               <Card.Body>
-                <ul className="d-flex gap-2 gap-md-5  list-style-none   list-unstyled">
-                  <li className=" col-3 col-md-4 text-truncate">
-                    {item.senderemail}
+                <ul className="d-flex gap-2 gap-md-5 list-style-none list-unstyled">
+                  {!item.read && <li style={{ listStyle: "inside" }}></li>}
+                  <li className="col-3 col-md-4 text-truncate">{item.senderemail}</li>
+                  <li className="col-3 col-md-2 text-truncate">{item.subject}</li>
+                  <li className="col-4 col-md-2 text-truncate text-nowrap">{item.date}</li>
+                  <li className="col-1 d-flex">
+                    
+                   <Button
+                   onClick={(event) => deletehandler(item.key, event)}
+                   className="p-0 p-md-1"
+                 >
+                   Delete
+                 </Button>
                   </li>
-                  <li className=" col-3 col-md-2 text-truncate">
-                    {item.subject}
-                  </li>
-                  <li className="col-4 col-md-2 text-truncate text-nowrap">
-                    {item.date}
-                  </li>
-               
-
-                  <li className="col-1 d-flex ">
-
-                    <Button
-                      onClick={deletehandler.bind(null, item.key)}
-                      className="p-0 p-md-1"
-                    >
-                      Delete
-                    </Button>
-                  </li>
-               
                 </ul>
               </Card.Body>
             </Card>
-          </Col>
-        </Row>
-        </NavLink>
+          </NavLink>
+        </Col>
+      </Row>
     </Container>
   ));
-
-  //
+  
   console.log(data);
   return (
     <div className="bg-info">

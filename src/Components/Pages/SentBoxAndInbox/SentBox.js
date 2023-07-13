@@ -66,7 +66,7 @@ const Sent = () => {
   };
   const data = Sent.map((item) => (
     <Container style={{ backgroundColor: "gray" }}>
-     <NavLink as={Link} to="/maildetail">
+     <NavLink as={Link} to={`/maildetail/${item.key}/${senderid}/${"sentbox"}`} >
 
         <Row>
           <Col>

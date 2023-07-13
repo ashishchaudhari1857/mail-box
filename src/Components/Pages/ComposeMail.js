@@ -37,7 +37,7 @@ const ComposeMail = () => {
   
       const inboxRes = await fetch(`${API}${receiverid}/inbox.json`, {
         method: 'POST',
-        body: JSON.stringify({...obj,sender:sendermail}),
+        body: JSON.stringify({...obj,sender:sendermail,read:""}),
         headers: {
           'Content-Type': 'application/json',
         },
