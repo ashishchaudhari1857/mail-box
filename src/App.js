@@ -9,21 +9,28 @@ import Header from './Components/Navbar/Navbar';
 import Sent from './Components/Pages/SentBoxAndInbox/SentBox';
 import Inbox from './Components/Pages/SentBoxAndInbox/Inbox'
 import Maildetail from './Components/Pages/Maildetail';
-function App() {
-
+import { useSelector } from 'react-redux';
+  function App() {
+   const isLogged =useSelector((state)=>state.auth.isLogged)
   return (
 <>
 <Header></Header>
  <Routes>
-  <Route path='/composemail' element={<ComposeMail></ComposeMail>}></Route>
-  <Route  index element={<Login></Login>}></Route>
-  <Route  path='/login' element={<Login></Login>}></Route>
-  <Route  path='/home' element={<Home></Home>}></Route>
+ <Route  path='/login' element={<Login></Login>}></Route>
  <Route  path="/signup" element={<SignUp></SignUp>}></Route>
- <Route  path="/sentmails" element={<Sent></Sent>}></Route> 
- <Route  path="/maildetail/:id/:userid/:userchoice" element={<Maildetail></Maildetail>}></Route>  
- <Route  path="/inbox" element={<Inbox></Inbox>}></Route>
  <Route path="/forget" element={<Reset></Reset>}></Route>
+ <Route  index element={<Home />} />
+
+
+ {isLogged && (
+            <>
+              <Route path="/composemail" element={<ComposeMail />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/sentmails" element={<Sent />} />
+              <Route path="/maildetail/:id/:userid/:userchoice" element={<Maildetail />} />
+              <Route path="/inbox" element={<Inbox />} />
+            </>
+          )}
 </Routes> 
 </>  ); 
 

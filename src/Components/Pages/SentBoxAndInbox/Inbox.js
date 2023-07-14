@@ -47,8 +47,8 @@ const Inbox = () => {
   }, []);
 
   //
-  const deletehandler = async (key, event) => {
-    event.stopPropagation();
+  const deletehandler = async (key) => {
+   
     try {
       const res = await fetch(`${API}${senderid}/inbox/${key}.json`, {
         method: "DELETE",
@@ -69,33 +69,35 @@ const Inbox = () => {
   };
   
   const data = Recieved.map((item) => (
-    <Container style={{ backgroundColor: "gray" }} key={item.key}>
-      <Row>
-        <Col>
+  
+    <div key={item.key} className="mt-3">
+    <div className="d-flex justify-content-center" >
           <NavLink as={Link} to={`/maildetail/${item.key}/${senderid}/${"inbox"}`}>
-            <Card className="mt-1 bg-black text-white">
+            <Card className="mt-1 bg-black text-white" style={{width:"400px"}}>
               <Card.Body>
                 <ul className="d-flex gap-2 gap-md-5 list-style-none list-unstyled">
                   {!item.read && <li style={{ listStyle: "inside" }}></li>}
-                  <li className="col-3 col-md-4 text-truncate">{item.senderemail}</li>
+                  <li className="col-5 col-md-4 text-truncate">{item.senderemail}</li>
                   <li className="col-3 col-md-2 text-truncate">{item.subject}</li>
                   <li className="col-4 col-md-2 text-truncate text-nowrap">{item.date}</li>
-                  <li className="col-1 d-flex">
-                    
-                   <Button
-                   onClick={(event) => deletehandler(item.key, event)}
-                   className="p-0 p-md-1"
-                 >
-                   Delete
-                 </Button>
-                  </li>
                 </ul>
               </Card.Body>
             </Card>
           </NavLink>
-        </Col>
-      </Row>
-    </Container>
+          <Card className="mt-1 bg-black text-white">
+          <Card.Body>
+          <Button
+                    onClick={(event) => {
+                      deletehandler(item.key);
+                    }}
+                    className="p-0 p-md-1"
+                  >
+                    Delete
+                  </Button>
+          </Card.Body>
+        </Card>
+      </div>
+    </div>
   ));
   
   console.log(data);

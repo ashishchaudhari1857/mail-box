@@ -16,9 +16,11 @@ const MailManageSlice=createSlice({
         inbox:(state,action)=>{
             state.Recieved=[...action.payload]
             console.log(state.Recieved)
+            const filterinbox= state.Recieved.filter((item)=>item.read!==true);
+            state.Inboxtotol=filterinbox.length;
         }
-
-    }
+           
+        }
 
 })
 

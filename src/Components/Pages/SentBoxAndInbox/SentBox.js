@@ -13,6 +13,7 @@ const Sent = () => {
   const senderid = usermail.replace(/[@.]/g, "");
   const dispatch = useDispatch();
   const Sent = useSelector((state) => state.mail.Sent);
+
   const sentmails = async () => {
     const loading = toast.info("loading....");
     try {
@@ -44,7 +45,6 @@ const Sent = () => {
     sentmails();
   }, []);
 
-  //
   const deletehandler = async (key) => {
     try {
       const res = await fetch(`${API}${senderid}/sentbox/${key}.json`, {
@@ -64,57 +64,47 @@ const Sent = () => {
       toast.error(err.massage);
     }
   };
+
+
   const data = Sent.map((item) => (
-    <Container style={{ backgroundColor: "gray" }}>
-     <NavLink as={Link} to={`/maildetail/${item.key}/${senderid}/${"sentbox"}`} >
-
-        <Row>
-          <Col>
-            <Card className="mt-1 bg-black  text-white">
-              <Card.Body>
-                <ul className="d-flex gap-2 gap-md-5  list-style-none   list-unstyled">
-                  <li className=" col-3 col-md-4 text-truncate">
-                    {item.recieveremail}
-                  </li>
-                  <li className=" col-3 col-md-2 text-truncate">
-                    {item.subject}
-                  </li>
-                  <li className="col-4 col-md-2 text-truncate text-nowrap">
-                    {item.date}
-                  </li>
-               
-
-                  <li className="col-1 d-flex ">
-
-                    <Button
-                      onClick={deletehandler.bind(null, item.key)}
-                      className="p-0 p-md-1"
-                    >
-                      Delete
-                    </Button>
-                  </li>
-               
-                </ul>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
+    <div key={item.key} className="mt-3">
+      <div className="d-flex justify-content-center">
+        <NavLink as={Link} to={`/maildetail/${item.key}/${senderid}/${"sentbox"}`}>
+          <Card className="mt-1 bg-black text-white" style={{width:"400px"}}>
+            <Card.Body>
+              <ul className="d-flex gap-2 gap-md-5 list-style-none list-unstyled">
+                <li className="col-5 col-md-4 text-truncate">{item.recieveremail}</li>
+                <li className="col-3 col-md-2 text-truncate">{item.subject}</li>
+                <li className="col-4 col-md-2 text-truncate text-nowrap">{item.date}</li>
+              </ul>
+            </Card.Body>
+          </Card>
         </NavLink>
-    </Container>
+        <Card className="mt-1 bg-black text-white" >
+          <Card.Body>
+          <Button
+                    onClick={(event) => {
+                      deletehandler(item.key);
+                    }}
+                    className="p-0 p-md-1"
+                  >
+                    Delete
+                  </Button>
+          </Card.Body>
+        </Card>
+      </div>
+    </div>
   ));
-
-  //
-  console.log(data);
+  
+  
+  
   return (
     <div className="bg-info">
-      <h5
-        style={{ fontStyle: "oblique" }}
-        className="d-flex justify-content-center  "
-      >
+      <h5 style={{ fontStyle: "oblique" }} className="d-flex justify-content-center">
         Sentbox
       </h5>
       {data}
-      <ToastContainer></ToastContainer>
+      <ToastContainer />
     </div>
   );
 };

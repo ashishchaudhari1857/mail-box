@@ -20,9 +20,9 @@ const Maildetail = () => {
        throw Error("something is went wrong")
       }
 //   logic  for read unread msgs
-     if(params.userchoice==="inbox"){
+     if(params.userchoice==="inbox" && res.ok){
       const inboxReads = await fetch(`${API}/${params.userid}/${params.userchoice}/${params.id}.json`, {
-        method: 'PATCH',
+        method: 'PUT',
         body: JSON.stringify({...data,read:true}),
         headers: {
           'Content-Type': 'application/json',

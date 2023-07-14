@@ -6,11 +6,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useRef } from 'react';
 import { useSelector,useDispatch } from 'react-redux';
 import { Authactions } from './LoginSlice';
+import { Mailactions } from '../Pages/SentBoxAndInbox/MailManageSlice';
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const dispatch=useDispatch();
   const Navigate=useNavigate()
+  const inboxarray =useSelector((state)=>state.mail.Recieved)
      const loading =toast.info("loading.........")
     const emailref=useRef()
     const passref=useRef()
@@ -35,6 +37,7 @@ const Login = () => {
              const {idToken:token ,email:id} =data;
               if(res.ok){
               dispatch(Authactions.login({token,id}))
+              dispatch(Mailactions.inbox(inboxarray))
                  toast.success("login successfully")
                  toast.dismiss(loading)
                  Navigate('/home')

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Authactions } from "../Auth/LoginSlice";
 const Header = () => {
   const isLogged = useSelector((state) => state.auth.isLogged);
+  const Inboxtotol=useSelector((state)=>state.mail.Inboxtotol)
   const dispatch = useDispatch();
   return (
     <Navbar
@@ -48,7 +49,7 @@ const Header = () => {
 
           {isLogged && (
             <NavLink as={Link} to="/inbox">
-              Inbox
+              Inbox{Inboxtotol}
             </NavLink>
           )}
 
