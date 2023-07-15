@@ -6,6 +6,8 @@ import { Mailactions } from "./MailManageSlice";
 import { Card, Row, Col, Container, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import classes  from './mail.module.css'
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Sent = () => {
   const API = "https://mailbox-df3f9-default-rtdb.firebaseio.com/";
@@ -70,7 +72,7 @@ const Sent = () => {
     <div key={item.key} className="mt-3">
       <div className="d-flex justify-content-center">
         <NavLink as={Link} to={`/maildetail/${item.key}/${senderid}/${"sentbox"}`}>
-          <Card className="mt-1 bg-black text-white" style={{width:"400px"}}>
+          <Card className={`mt-1 bg-black text-white  ${classes.mailline}`}>
             <Card.Body>
               <ul className="d-flex gap-2 gap-md-5 list-style-none list-unstyled">
                 <li className="col-5 col-md-4 text-truncate">{item.recieveremail}</li>
@@ -88,7 +90,7 @@ const Sent = () => {
                     }}
                     className="p-0 p-md-1"
                   >
-                    Delete
+                  < DeleteIcon></DeleteIcon> 
                   </Button>
           </Card.Body>
         </Card>
@@ -99,10 +101,10 @@ const Sent = () => {
   
   
   return (
-    <div className="bg-info">
-      <h5 style={{ fontStyle: "oblique" }} className="d-flex justify-content-center">
+    <div >
+      <h1  style={{ fontStyle: "oblique" }} className="d-flex justify-content-center bg-info">
         Sentbox
-      </h5>
+      </h1>
       {data}
       <ToastContainer />
     </div>

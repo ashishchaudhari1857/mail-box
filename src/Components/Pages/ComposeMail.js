@@ -4,9 +4,10 @@ import { useRef, useState } from "react";
 import JoditEditor from "jodit-react";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
-const ComposeMail = () => {
+import SendIcon from '@mui/icons-material/Send';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import { useNavigate } from "react-router";
+const ComposeMail = (props) => {
   const API = "https://mailbox-df3f9-default-rtdb.firebaseio.com/";
   const receievermailref = useRef("");
   const [content, setContent] = useState(" ");
@@ -14,7 +15,7 @@ const ComposeMail = () => {
   const sendermail = useSelector((state) => state.auth.userid);
   const recieveremail = receievermailref.current.value;
   const subject = SubjectRef.current.value;
-
+    const navigate=useNavigate();
 
   const submithandler = async (e) => {
     e.preventDefault();
@@ -96,9 +97,9 @@ const ComposeMail = () => {
                       />
                     </Form.Group>
                     <div className="mt-2 d-flex justify-content-end gap-3">
-                      <Button>Discard</Button>
+                      <Button onClick={()=>navigate('/inbox')}><KeyboardReturnIcon></KeyboardReturnIcon></Button>
 
-                      <Button type="submit">Send</Button>
+                      <Button type="submit"><SendIcon></SendIcon></Button>
                     </div>
                   </Form>
                 </Card.Body>

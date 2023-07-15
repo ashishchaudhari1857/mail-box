@@ -40,7 +40,7 @@ const Login = () => {
               dispatch(Mailactions.inbox(inboxarray))
                  toast.success("login successfully")
                  toast.dismiss(loading)
-                 Navigate('/home')
+                 Navigate('/inbox')
               }else{
                  throw Error(data.error.message)
               }

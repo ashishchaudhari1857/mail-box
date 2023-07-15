@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
   function App() {
    const isLogged =useSelector((state)=>state.auth.isLogged)
   return (
-<>
+<div className='theme'>
 <Header></Header>
  <Routes>
  <Route  path='/login' element={<Login></Login>}></Route>
@@ -32,7 +32,8 @@ import { useSelector } from 'react-redux';
             </>
           )}
 </Routes> 
-</>  ); 
+</div>
+ ); 
 
 }
 

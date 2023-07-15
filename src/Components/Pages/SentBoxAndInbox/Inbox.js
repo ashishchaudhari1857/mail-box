@@ -7,6 +7,9 @@ import { Card, Row, Col, Container, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import classes  from './mail.module.css';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 const Inbox = () => {
   const API = "https://mailbox-df3f9-default-rtdb.firebaseio.com/";
   const usermail = useSelector((state) => state.auth.userid);
@@ -15,7 +18,6 @@ const Inbox = () => {
   const navigate=useNavigate();
   const Recieved = useSelector((state) => state.mail.Recieved);
   const inboxmails = async () => {
-    const loading = toast.info("loading....");
     try {
       const res = await fetch(`${API}${senderid}/inbox.json`);
       const inboxmaildata = await res.json();
@@ -32,7 +34,6 @@ const Inbox = () => {
       }
 
       if (res.ok) {
-        toast.dismiss(loading);
         dispatch(Mailactions.inbox(inboxmailarray));
       } else {
         throw Error(inboxmaildata.error.message);
@@ -43,8 +44,10 @@ const Inbox = () => {
   };
 
   useEffect(() => {
-    inboxmails();
+      inboxmails();
+  
   }, []);
+  
 
   //
   const deletehandler = async (key) => {
@@ -70,10 +73,10 @@ const Inbox = () => {
   
   const data = Recieved.map((item) => (
   
-    <div key={item.key} className="mt-3">
+    <div key={item.key} className="mt-1">
     <div className="d-flex justify-content-center" >
           <NavLink as={Link} to={`/maildetail/${item.key}/${senderid}/${"inbox"}`}>
-            <Card className="mt-1 bg-black text-white" style={{width:"400px"}}>
+            <Card className={`mt-1 bg-muted text-dark   ${classes.mailline}`} >
               <Card.Body>
                 <ul className="d-flex gap-2 gap-md-5 list-style-none list-unstyled">
                   {!item.read && <li style={{ listStyle: "inside" }}></li>}
@@ -84,15 +87,15 @@ const Inbox = () => {
               </Card.Body>
             </Card>
           </NavLink>
-          <Card className="mt-1 bg-black text-white">
+          <Card className="mt-1 p-0 text-white bg-muted">
           <Card.Body>
           <Button
+        
                     onClick={(event) => {
                       deletehandler(item.key);
                     }}
                     className="p-0 p-md-1"
-                  >
-                    Delete
+                  > <DeleteIcon></DeleteIcon>
                   </Button>
           </Card.Body>
         </Card>
@@ -102,13 +105,13 @@ const Inbox = () => {
   
   console.log(data);
   return (
-    <div className="bg-info">
-      <h5
-        style={{ fontStyle: "oblique" }}
-        className="d-flex justify-content-center  "
+    <div  >
+      <h1
+        style={{ fontStyle: "oblique",}}
+        className="d-flex justify-content-center bg-info "
       >
         inbox
-      </h5>
+      </h1>
       {data}
       <ToastContainer></ToastContainer>
     </div>

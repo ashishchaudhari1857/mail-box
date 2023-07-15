@@ -1,0 +1,43 @@
+/* Home.module.css */
+
+.section1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem 0;
+  }
+  
+  .head {
+    text-align: center;
+  }
+  
+  .head h1 {
+    font-size: 3rem;
+  }
+  
+  .footer {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .footer section {
+    flex-basis: 50%;
+    text-align: center;
+  }
+  .head h1 {
+ font-size: 3rem;
+  }
+  
+  .footer img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .head h1{
+        font-size: 3rem;
+    }
+  }
