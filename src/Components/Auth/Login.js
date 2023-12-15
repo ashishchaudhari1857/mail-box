@@ -36,8 +36,8 @@ const Login = () => {
             const data=await res.json()
              const {idToken:token ,email:id} =data;
               if(res.ok){
-              dispatch(Authactions.login({token,id}))
-              dispatch(Mailactions.inbox(inboxarray))
+                dispatch(Authactions.login({token,id}))
+                dispatch(Mailactions.inbox(inboxarray))
                  toast.success("login successfully")
                  toast.dismiss(loading)
                  Navigate('/inbox')
